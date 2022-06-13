@@ -7,7 +7,11 @@ class UserCreateForm(forms.ModelForm):
         model = CustomUser
         fields = ('username', 'first_name', 'last_name', 'email', 'password')
         widgets = {
-            'password': forms.PasswordInput()
+            'password': forms.PasswordInput(attrs={'placeholder': 'Password'}),
+            'first_name': forms.TextInput(attrs={'placeholder': 'First Name'}),
+            'last_name': forms.TextInput(attrs={'placeholder': 'Last Name'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'email@example.com'}),
+            'username': forms.TextInput(attrs={'placeholder': 'Username'})
         }
 
     def save(self, commit=True):

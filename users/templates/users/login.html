@@ -5,19 +5,46 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4 offset-md-4">
-            <div class="login-form bg-light mt-4 p-4">
+            <div class="login-form bg-light mt-4 p-4 shadow-lg">
                 <form method="post" action="{% url 'users:login' %}" class="row g-3">
                     <h3>Welcome back</h3>
                     {% csrf_token %} {{ login_form | crispy }}
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="dropdownCheck">
+                        <label class="form-check-label" for="dropdownCheck">
+                            Remember me
+                        </label>
+                        <a href="#" class="float-end text-decoration-none">Forgot password?</a>
+                    </div>
                     <button type="submit " class="btn btn-primary ">Log in</button>
                 </form>
-                <hr class="mt-4">
-                <div class="col-12">
+                <div class="col-12 mt-2">
                     <p class="text-center mb-0">New to Goodreads? <a href="{% url 'users:register' %} "> Register</a></p>
+                </div>
+                <hr class="mt-4">
+                <div class="text-center">
+                    <p cl>or sign up with:</p>
+                    <button type="button" class="btn btn-outline-primary btn-floating mx-1">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+
+                    <button type="button" class="btn  btn-outline-primary btn-floating mx-1">
+                        <i class="fab fa-google"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-outline-primary btn-floating mx-1">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+
+                    <button type="button" class="btn  btn-outline-primary btn-floating mx-1">
+                        <i class="fab fa-github"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 
 {% endblock %}
