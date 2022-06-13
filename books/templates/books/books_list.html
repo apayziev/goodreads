@@ -22,7 +22,8 @@
 <div class="row mt-3">
     <div class="col-2 mb-4">
         <a href="{% url 'books:book_detail' book.id %}" class="pe-auto">
-            <img src="{{ book.cover_pic.url }} " alt="cover_pic " class="cover-pic rounded"></a>
+            <img src="{{ book.cover_pic.url }} " alt="cover_pic " class="cover-pic shadow-lg p-3 mb-5 bg-body rounded">
+        </a>
     </div>
 
     <div class="col-6 ms-4">

@@ -1,13 +1,30 @@
 {% extends "base.html" %} {% load crispy_forms_tags %} {% block title %} {{book.title}} {% endblock title %} {%block content %}
-<div class="row mb-4">
-    <div class="col-2 mb-4">
-        <img src="{{book.cover_pic.url}}" alt="cover_pic" class="cover-pic">
-    </div>
-    <div class="col-6 ms-4">
-        <h1>{{book.title}}</h1>
-        <p>
-            {{book.description}}
-        </p>
+<div class="card mb-3 col-xl-8 border-primary">
+    <div class="row m-lg-2">
+        <div class="col-md-3">
+            <img src="{{book.cover_pic.url}}" alt="cover_pic" class="cover-pic shadow-lg" />
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title fw-bold ">
+                    {{book.title}}
+                </h5>
+                <h6 class="fst-italic fw-light">
+                    by {{ book.authors.first }}
+                </h6>
+                <div class="rating" style="color: #FDCC0D ">
+                    <span class="fa fa-star "></span>
+                    <span class="fa fa-star "></span>
+                    <span class="fa fa-star "></span>
+                    <span class="fa fa-star "></span>
+                    <span class="fa fa-star "></span>
+                </div>
+
+                <p class="card-text">
+                    {{book.description}}
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -15,8 +32,8 @@
 
 
 <div class="row">
-    <div class="col-xl-8">
-        <div class="card">
+    <div class="">
+        <div class="card col-xl-8 border-dark">
             <div class="card-body">
                 <div class="card-footer py-3 border-0" style="background-color: #f8f9fa">
                     <div class="d-flex flex-start w-100">
@@ -39,7 +56,27 @@
 
 
 {% if book.bookreview_set.exists %}
-<div class="mt-2">
+<div class="card border mt-3 col-xl-8">
+    {% for review in book.bookreview_set.all %}
+    <div class="card  border-light mb-3">
+        <div class="card-header">
+            <img class="rounded-circle me-3" id="commenter-profile-pic" src="{{review.user.profile_pic.url}} " alt="avatar" />
+            <h6 class="fw-bold mb-1 text-primary d-inline">{{review.user.username}}</h6>
+            <span class="fw-light">rated it {{ review.rating }}</span>
+            <span class="fw-lighter float-end">{{ review.created_at }}</span>
+        </div>
+        <div class="card-body text-dark">
+            <p class="mb-0 font-monospace ">
+                {{ review.comment }}
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+<!-- <div class="mt-2">
     <h4 class="mb-2">Recent reviews</h4>
     {% for review in book.bookreview_set.all %}
     <div class="row">
@@ -70,5 +107,6 @@
             </div>
         </div>
         {% endfor %}
-    </div>
-    {% endif %} {% endblock %}
+    </div>-->
+
+{% endblock %}
