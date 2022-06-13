@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block content %} {% load crispy_forms_tags %}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="login-form bg-light mt-4 p-4">
+                <form method="post" action="{% url 'users:login' %}" class="row g-3">
+                    <h3>Welcome back</h3>
+                    {% csrf_token %} {{ login_form | crispy }}
+                    <button type="submit " class="btn btn-primary ">Log in</button>
+                </form>
+                <hr class="mt-4">
+                <div class="col-12">
+                    <p class="text-center mb-0">New to Goodreads? <a href="{% url 'users:register' %} "> Register</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
