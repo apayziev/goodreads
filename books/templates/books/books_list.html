@@ -16,8 +16,6 @@
 
 
 
-
-
 {% for book in page_obj.object_list %}
 <div class="row mt-3">
     <div class="col-2 mb-4">
@@ -54,8 +52,6 @@
         <li class="page-item "><a class="page-link " href="?page={{ page_obj.paginator.num_pages }} ">last
                         &raquo;</a></li>
         {% endif %}
-
-
     </ul>
 </nav>
 
