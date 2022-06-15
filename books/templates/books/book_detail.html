@@ -63,14 +63,21 @@
             <img class="rounded-circle me-3" id="commenter-profile-pic" src="{{review.user.profile_pic.url}} " alt="avatar" />
             <h6 class="fw-bold mb-1 text-primary d-inline">{{review.user.username}}</h6>
             <span class="fw-light">rated it {{ review.rating }}</span>
+            <!--Edit and delete -->
+            {% if review.user == request.user %}
+            <a href="{% url 'books:edit_review' book.id review.id %}" class="text-decoration-none">
+                <i class="bi bi-pencil-square"></i>
+            </a>
+            <a href="{% url 'books:confirm_delete_review'  book.id review.id %}" class="text-decoration-none">
+                <i class="bi bi-trash"></i>
+            </a> {% endif %}
             <span class="fw-lighter float-end">{{ review.created_at }}</span>
+            <div class="card-body text-dark">
+                <p class="mb-0 font-monospace ">
+                    {{ review.comment }}
+                </p>
+            </div>
         </div>
-        <div class="card-body text-dark">
-            <p class="mb-0 font-monospace ">
-                {{ review.comment }}
-            </p>
-        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
-{% endif %} {% endblock %}
+    {% endif %} {% endblock %}
