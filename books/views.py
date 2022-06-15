@@ -4,6 +4,7 @@ from django.views import View
 from django.views.generic import ListView, DetailView
 from books.forms import BookReviewForm
 from books.models import Book, BookReview
+from django.contrib import messages
 # Create your views here.
 
 
@@ -73,3 +74,54 @@ class AddReviewView(LoginRequiredMixin, View):
 #         context = super().get_context_data(**kwargs)
 #         context['review_form'] = self.form_class
 #         return context
+
+
+class EditReviewView(LoginRequiredMixin, View):
+    def get(self, request, book_id, review_id):
+        book = Book.objects.get(id=book_id)
+        review = BookReview.objects.get(id=review_id)
+        review_form = BookReviewForm(instance=review)
+
+        context = {
+            'book': book,
+            'review_form': review_form
+        }
+        return render(request, 'books/edit_review.html', context=context)
+
+    def post(self, request, book_id, review_id):
+        book = Book.objects.get(id=book_id)
+        review = BookReview.objects.get(id=review_id)
+        review_form = BookReviewForm(data=request.POST, instance=review)
+
+        if review_form.is_valid():
+            review_form.save()
+            return redirect('books:book_detail', book_id=book_id)
+
+        else:
+            context = {
+                'book': book,
+                'review_form': review_form
+            }
+            return render(request, 'books/edit_review.html', context=context)
+
+
+class ConfirmDeleteReviewView(LoginRequiredMixin, View):
+    def get(self, request, book_id, review_id):
+        book = Book.objects.get(id=book_id)
+        review = BookReview.objects.get(id=review_id)
+
+        context = {
+            'book': book,
+            'review': review
+        }
+        return render(request, 'books/confirm_delete_review.html', context=context)
+
+
+class DeleteReviewView(LoginRequiredMixin, View):
+    def get(self, request, book_id, review_id):
+        book = Book.objects.get(id=book_id)
+        review = BookReview.objects.get(id=review_id)
+        review.delete()
+        messages.success(request, 'Review deleted successfully')
+
+        return redirect('books:book_detail', book_id=book_id)
