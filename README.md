@@ -35,6 +35,6 @@ Write about 1-2 paragraphs describing the purpose of your project.
 - Backend Framework - Django
 - Database - PostgreSQL
 
-## ✍️ Authors <a name = "authors"></a>
+## ✍️ Author <a name = "authors"></a>
 
 - [@apayziev](https://github.com/apayziev) - Idea & Initial work
