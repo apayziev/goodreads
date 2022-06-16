@@ -25,6 +25,7 @@ urlpatterns = [
     path('books/', include('books.urls')),
     path('', landing_page, name='landing_page'),
     path('home/', home_page, name='home_page'),
+    path('api/', include('api.urls')),
 
 
     path('api-auth/', include('rest_framework.urls')),
