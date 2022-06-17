@@ -1,4 +1,4 @@
-from books.models import Book, BookReview
+from books.models import Book, BookReview, Author
 from rest_framework import serializers
 from users.models import CustomUser
 
@@ -7,6 +7,12 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = ('id', 'title', 'description', 'isbn', 'cover_pic')
+
+
+class AuthorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Author
+        fields = ('id', 'first_name', 'last_name', 'email', 'bio')
 
 
 class CustomUserSerializer(serializers.ModelSerializer):

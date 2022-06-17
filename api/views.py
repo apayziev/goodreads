@@ -1,20 +1,42 @@
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.pagination import PageNumberPagination
-from rest_framework import status
-from rest_framework import generics
-from books.models import BookReview
-from api.serializers import BookReviewSerializer
+# from rest_framework.response import Response
+# from rest_framework.views import APIView
+# from rest_framework.pagination import PageNumberPagination
+# from rest_framework import status
+# from rest_framework import generics
+from rest_framework import viewsets
+from books.models import Book, BookReview, Author
+from api.serializers import AuthorSerializer, BookReviewSerializer, BookSerializer
 from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 
-class BookReviewDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+class BookReviewsViewSet(viewsets.ModelViewSet):
+    queryset = BookReview.objects.all().order_by('-created_at')
+    serializer_class = BookReviewSerializer
+
     permission_classes = [IsAuthenticated]
 
-    queryset = BookReview.objects.all()
-    serializer_class = BookReviewSerializer
-    lookup_field = 'pk'
+
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+    permission_classes = [IsAuthenticated]
+
+
+class AuthorViewSet(viewsets.ModelViewSet):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+
+    permission_classes = [IsAuthenticated]
+
+
+# class BookReviewDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+#     permission_classes = [IsAuthenticated]
+
+#     queryset = BookReview.objects.all()
+#     serializer_class = BookReviewSerializer
+#     lookup_field = 'pk'
 
     # def get(self, request, pk):
     #     book_review = BookReview.objects.get(pk=pk)
@@ -47,12 +69,12 @@ class BookReviewDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     #     return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class BookListAPIView(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
+# class BookListAPIView(generics.ListCreateAPIView):
+#     permission_classes = [IsAuthenticated]
 
-    queryset = BookReview.objects.all().order_by('-created_at')
-    serializer_class = BookReviewSerializer
-    pagination_class = PageNumberPagination
+#     queryset = BookReview.objects.all().order_by('-created_at')
+#     serializer_class = BookReviewSerializer
+#     pagination_class = PageNumberPagination
 
     # def get(self, request):
     #     book_reviews = BookReview.objects.all().order_by('-created_at')
