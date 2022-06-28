@@ -17,6 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from rest_framework.schemas import get_schema_view # new
+from rest_framework.documentation import include_docs_urls # new
+from rest_framework_swagger.views import get_swagger_view # new
+
+
+API_TITLE = 'Goodreads API'
+schema_view = get_swagger_view(title=API_TITLE) # new
 
 from .views import landing_page, home_page
 
@@ -30,6 +37,10 @@ urlpatterns = [
 
     path('api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls'), name='accounts'),
+    path('docs/', include_docs_urls(title='Goodreads API')), # new
+    # path('schema/', schema_view), # new
+    path('swagger-docs/', schema_view), # new
 ]
 
 urlpatterns += static(
